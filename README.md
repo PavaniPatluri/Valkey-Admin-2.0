@@ -2,9 +2,12 @@
 
 **Valkey Admin 2.0** is a next-generation infrastructure management and observability platform designed for developers and SRE teams. It provides deep, real-time insights into your cluster's health, memory allocation, active nodes, and traffic—all without context switching.
 
-## 📸 Dashboard Preview
+## 📸 Preview
 
-![Valkey Admin Dashboard Preview](./public/dashboard-preview.png)
+![Valkey Admin Initialization](./public/splash-screen.png)
+*(Note: Save the screenshot you just shared as `splash-screen.png` in the `public/` folder to display it here)*
+
+![Valkey Admin Dashboard](./public/dashboard-preview.png)
 *(Note: Add a screenshot of the main dashboard to the `public/` folder and name it `dashboard-preview.png` to display it here)*
 
 ## ✨ Features
