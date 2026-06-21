@@ -50,12 +50,10 @@ export function TopNav() {
         </div>
 
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" className="relative text-muted-foreground hover:text-foreground">
-              <Bell className="h-5 w-5" />
-              <span className="absolute right-1.5 top-1.5 flex h-2 w-2 rounded-full bg-primary" />
-              <span className="sr-only">Notifications</span>
-            </Button>
+          <DropdownMenuTrigger className="relative inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground h-9 w-9 text-muted-foreground outline-none">
+            <Bell className="h-5 w-5" />
+            <span className="absolute right-1.5 top-1.5 flex h-2 w-2 rounded-full bg-primary" />
+            <span className="sr-only">Notifications</span>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-80" align="end" forceMount>
             <DropdownMenuLabel className="font-normal flex justify-between items-center">

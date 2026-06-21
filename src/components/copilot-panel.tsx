@@ -127,7 +127,7 @@ export function CopilotPanel() {
                 </div>
                 <form onSubmit={handleSubmit} className="relative flex items-center">
                   <Input
-                    value={input}
+                    value={input || ''}
                     onChange={handleInputChange}
                     placeholder="Ask Copilot..."
                     className="pr-20 bg-muted/50 border-border focus-visible:ring-primary rounded-full h-12"
@@ -138,7 +138,7 @@ export function CopilotPanel() {
                     </Button>
                     <Button 
                       type="submit"
-                      disabled={!input.trim() || isLoading}
+                      disabled={!input?.trim() || isLoading}
                       className="h-9 w-9 bg-primary text-primary-foreground rounded-full shadow-sm" 
                       size="icon"
                     >
