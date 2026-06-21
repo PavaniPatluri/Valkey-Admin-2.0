@@ -22,11 +22,13 @@ export function CopilotPanel() {
   const [inputValue, setInputValue] = useState('')
   const scrollRef = useRef<HTMLDivElement>(null)
   
-  const { messages, append, isLoading } = useChat({
+  const { messages, sendMessage, status } = useChat({
     initialMessages: [
       { id: '1', role: 'assistant', content: 'Hello! I am your Valkey AI Assistant. How can I help you optimize your cluster today?' }
     ]
   })
+
+  const isLoading = status !== 'ready'
 
   const displayMessages = messages.length > 0 ? messages : [
     { id: '1', role: 'assistant', content: 'Hello! I am your Valkey AI Assistant. How can I help you optimize your cluster today?' }
@@ -40,13 +42,13 @@ export function CopilotPanel() {
   }, [messages])
 
   const handleSuggestionClick = (suggestion: string) => {
-    append({ role: 'user', content: suggestion })
+    sendMessage({ role: 'user', content: suggestion })
   }
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!inputValue.trim() || isLoading) return
-    append({ role: 'user', content: inputValue })
+    sendMessage({ role: 'user', content: inputValue })
     setInputValue('')
   }
 
