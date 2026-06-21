@@ -19,13 +19,18 @@ const suggestions = [
 
 export function CopilotPanel() {
   const [isOpen, setIsOpen] = useState(false)
+  const [inputValue, setInputValue] = useState('')
   const scrollRef = useRef<HTMLDivElement>(null)
   
-  const { messages, input, handleInputChange, handleSubmit, setInput, isLoading } = useChat({
+  const { messages, append, isLoading } = useChat({
     initialMessages: [
       { id: '1', role: 'assistant', content: 'Hello! I am your Valkey AI Assistant. How can I help you optimize your cluster today?' }
     ]
   })
+
+  const displayMessages = messages.length > 0 ? messages : [
+    { id: '1', role: 'assistant', content: 'Hello! I am your Valkey AI Assistant. How can I help you optimize your cluster today?' }
+  ]
 
   // Auto-scroll to bottom when messages change
   useEffect(() => {
@@ -35,12 +40,14 @@ export function CopilotPanel() {
   }, [messages])
 
   const handleSuggestionClick = (suggestion: string) => {
-    setInput(suggestion)
-    // Wait for state to update, then submit
-    setTimeout(() => {
-      const formEvent = new Event('submit', { cancelable: true, bubbles: true }) as unknown as React.FormEvent<HTMLFormElement>
-      handleSubmit(formEvent)
-    }, 50)
+    append({ role: 'user', content: suggestion })
+  }
+
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (!inputValue.trim() || isLoading) return
+    append({ role: 'user', content: inputValue })
+    setInputValue('')
   }
 
   return (
@@ -88,7 +95,7 @@ export function CopilotPanel() {
 
               <ScrollArea className="flex-1 p-4 min-h-0" ref={scrollRef}>
                 <div className="space-y-4">
-                  {messages.map((msg) => (
+                  {displayMessages.map((msg) => (
                     <div key={msg.id} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                       <div className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm whitespace-pre-wrap ${
                         msg.role === 'user' 
@@ -99,7 +106,7 @@ export function CopilotPanel() {
                       </div>
                     </div>
                   ))}
-                  {isLoading && messages[messages.length - 1]?.role === 'user' && (
+                  {isLoading && displayMessages[displayMessages.length - 1]?.role === 'user' && (
                      <div className="flex justify-start">
                        <div className="max-w-[85%] rounded-2xl px-4 py-2.5 text-sm bg-muted text-foreground rounded-bl-sm border border-border/50">
                          <span className="flex gap-1 items-center h-5">
@@ -125,10 +132,10 @@ export function CopilotPanel() {
                     </button>
                   ))}
                 </div>
-                <form onSubmit={handleSubmit} className="relative flex items-center">
+                <form onSubmit={handleFormSubmit} className="relative flex items-center">
                   <Input
-                    value={input || ''}
-                    onChange={handleInputChange}
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
                     placeholder="Ask Copilot..."
                     className="pr-20 bg-muted/50 border-border focus-visible:ring-primary rounded-full h-12"
                   />
@@ -138,7 +145,7 @@ export function CopilotPanel() {
                     </Button>
                     <Button 
                       type="submit"
-                      disabled={!input?.trim() || isLoading}
+                      disabled={!inputValue.trim() || isLoading}
                       className="h-9 w-9 bg-primary text-primary-foreground rounded-full shadow-sm" 
                       size="icon"
                     >
