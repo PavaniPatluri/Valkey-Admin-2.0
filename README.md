@@ -2,8 +2,14 @@
 
 **Valkey Admin 2.0** is a next-generation infrastructure management and observability platform designed for developers and SRE teams. It provides deep, real-time insights into your cluster's health, memory allocation, active nodes, and traffic—all without context switching.
 
+## 📸 Dashboard Preview
+
+![Valkey Admin Dashboard Preview](./public/dashboard-preview.png)
+*(Note: Add a screenshot of the main dashboard to the `public/` folder and name it `dashboard-preview.png` to display it here)*
+
 ## ✨ Features
 
+- **Primary Dashboard (Cluster Overview)**: The first page of the application provides a high-level command center for your entire infrastructure. It features real-time trend graphs for Cluster Health, Active Nodes, Memory Usage (GB), CPU Load (%), Cache Hit Ratios, and Active Connections.
 - **Beautiful Next-Generation UI**: Fully responsive, glassmorphic design system powered by Tailwind CSS.
 - **True 3D Fluid Background**: Stunning, organic WebGL mesh background rendered using ShaderGradient.
 - **Real-Time Telemetry Dashboards**: High-performance charts (powered by Recharts) for tracking CPU Load, Cache Hit Ratios, Memory Usage, and Cluster Health.
