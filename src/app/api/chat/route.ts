@@ -8,7 +8,7 @@ export async function POST(req: Request) {
   const { messages } = await req.json();
 
   const result = streamText({
-    model: groq('llama3-8b-8192'),
+    model: groq('llama-3.1-8b-instant'),
     messages,
     system: `You are the Valkey AI Copilot, an advanced artificial intelligence integrated directly into the Valkey Admin NextGen infrastructure dashboard. 
     Your primary job is to assist site reliability engineers (SREs), DevOps engineers, and system administrators in managing and observing their Valkey (Redis-compatible) distributed memory clusters.
